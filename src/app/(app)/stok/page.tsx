@@ -44,7 +44,7 @@ export default async function StokPage({ searchParams }: PageProps<"/stok">) {
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
           <h1 className="text-2xl font-bold">Stok per Cabang</h1>
-          <p className="text-sm text-slate-500">Catat barang masuk, keluar, dan stock opname.</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">Catat barang masuk, keluar, dan stock opname.</p>
         </div>
         <AutoRefresh />
       </div>
@@ -83,7 +83,7 @@ export default async function StokPage({ searchParams }: PageProps<"/stok">) {
           {stores.map((s) => (
             <FilterChip key={s.id} href={filterHref({ storeId: String(s.id) })} active={storeId === s.id}>{s.code}</FilterChip>
           ))}
-          <span className="mx-2 h-5 w-px bg-slate-200" />
+          <span className="mx-2 h-5 w-px bg-slate-200 dark:bg-slate-700" />
           <FilterChip href={filterHref({ status: undefined })} active={!status}>Semua status</FilterChip>
           {(["HABIS", "KRITIS", "AMAN"] as const).map((s) => (
             <FilterChip key={s} href={filterHref({ status: s })} active={status === s}>{s.charAt(0) + s.slice(1).toLowerCase()}</FilterChip>
@@ -110,13 +110,13 @@ export default async function StokPage({ searchParams }: PageProps<"/stok">) {
             </thead>
             <tbody>
               {inventory.map((r) => (
-                <tr key={r.id} className={r.status === "HABIS" ? "bg-red-50" : r.status === "KRITIS" ? "bg-amber-50/60" : ""}>
+                <tr key={r.id} className={r.status === "HABIS" ? "bg-red-50 dark:bg-red-950/40" : r.status === "KRITIS" ? "bg-amber-50/60 dark:bg-amber-950/30" : ""}>
                   <td className="whitespace-nowrap">{r.store.code}</td>
-                  <td className="text-slate-500">{r.item.sku}</td>
+                  <td className="text-slate-500 dark:text-slate-400">{r.item.sku}</td>
                   <td>{r.item.name}</td>
-                  <td className="text-slate-500">{r.item.category?.name ?? "-"}</td>
+                  <td className="text-slate-500 dark:text-slate-400">{r.item.category?.name ?? "-"}</td>
                   <td className="text-right font-semibold">
-                    {r.quantity.toLocaleString("id-ID")} <span className="font-normal text-slate-500">{r.item.unit}</span>
+                    {r.quantity.toLocaleString("id-ID")} <span className="font-normal text-slate-500 dark:text-slate-400">{r.item.unit}</span>
                   </td>
                   <td>
                     <ActionForm action={thresholdAction} submitLabel="Ubah" resetOnSuccess={false} className="flex items-center gap-2 [&_.btn-primary]:px-2 [&_.btn-primary]:py-1 [&_.btn-primary]:text-xs">
@@ -128,7 +128,7 @@ export default async function StokPage({ searchParams }: PageProps<"/stok">) {
                 </tr>
               ))}
               {inventory.length === 0 && (
-                <tr><td colSpan={7} className="py-6 text-center text-slate-500">Tidak ada data.</td></tr>
+                <tr><td colSpan={7} className="py-6 text-center text-slate-500 dark:text-slate-400">Tidak ada data.</td></tr>
               )}
             </tbody>
           </table>
@@ -140,7 +140,7 @@ export default async function StokPage({ searchParams }: PageProps<"/stok">) {
 
 function FilterChip({ href, active, children }: { href: string; active: boolean; children: React.ReactNode }) {
   return (
-    <Link href={href} className={`rounded-full px-3 py-1 text-xs font-medium ${active ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>
+    <Link href={href} className={`rounded-full px-3 py-1 text-xs font-medium ${active ? "bg-slate-900 text-white dark:bg-emerald-600" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"}`}>
       {children}
     </Link>
   );

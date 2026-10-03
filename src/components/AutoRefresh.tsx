@@ -19,7 +19,7 @@ export function AutoRefresh({ seconds = 15 }: { seconds?: number }) {
   }, [router, seconds]);
 
   return (
-    <span className="inline-flex items-center gap-2 text-xs text-slate-500">
+    <span className="inline-flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
       <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
       Live · {last ? `diperbarui ${last.toLocaleTimeString("id-ID")}` : `refresh tiap ${seconds} detik`}
     </span>

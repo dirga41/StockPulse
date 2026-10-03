@@ -29,13 +29,13 @@ export default async function RiwayatPage({ searchParams }: PageProps<"/riwayat"
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Riwayat Mutasi Stok</h1>
-        <p className="text-sm text-slate-500">Audit trail semua perubahan stok (200 terakhir).</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Audit trail semua perubahan stok (200 terakhir).</p>
       </div>
       <section className="card">
         <div className="mb-3 flex flex-wrap gap-2">
-          <Link href="/riwayat" className={`rounded-full px-3 py-1 text-xs font-medium ${!storeId ? "bg-slate-900 text-white" : "bg-slate-100"}`}>Semua</Link>
+          <Link href="/riwayat" className={`rounded-full px-3 py-1 text-xs font-medium ${!storeId ? "bg-slate-900 text-white dark:bg-emerald-600" : "bg-slate-100 dark:bg-slate-800"}`}>Semua</Link>
           {stores.map((s) => (
-            <Link key={s.id} href={`/riwayat?storeId=${s.id}`} className={`rounded-full px-3 py-1 text-xs font-medium ${storeId === s.id ? "bg-slate-900 text-white" : "bg-slate-100"}`}>
+            <Link key={s.id} href={`/riwayat?storeId=${s.id}`} className={`rounded-full px-3 py-1 text-xs font-medium ${storeId === s.id ? "bg-slate-900 text-white dark:bg-emerald-600" : "bg-slate-100 dark:bg-slate-800"}`}>
               {s.code}
             </Link>
           ))}
@@ -60,11 +60,11 @@ export default async function RiwayatPage({ searchParams }: PageProps<"/riwayat"
                   <td>{l.store.code}</td>
                   <td>{l.item.name}</td>
                   <td>{typeLabel[l.type]}{l.transferId ? ` #${l.transferId}` : ""}</td>
-                  <td className={`text-right font-semibold ${l.qtyChange >= 0 ? "text-emerald-700" : "text-red-700"}`}>
+                  <td className={`text-right font-semibold ${l.qtyChange >= 0 ? "text-emerald-700 dark:text-emerald-400" : "text-red-700 dark:text-red-400"}`}>
                     {l.qtyChange >= 0 ? "+" : ""}{l.qtyChange}
                   </td>
-                  <td className="text-right text-slate-500">{l.qtyBefore} → {l.qtyAfter}</td>
-                  <td className="text-slate-500">{l.note ?? "-"}</td>
+                  <td className="text-right text-slate-500 dark:text-slate-400">{l.qtyBefore} → {l.qtyAfter}</td>
+                  <td className="text-slate-500 dark:text-slate-400">{l.note ?? "-"}</td>
                 </tr>
               ))}
             </tbody>

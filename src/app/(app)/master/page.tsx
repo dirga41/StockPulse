@@ -23,7 +23,7 @@ export default async function MasterPage() {
           <thead><tr><th>Kode</th><th>Nama</th><th>Alamat</th></tr></thead>
           <tbody>
             {stores.map((s) => (
-              <tr key={s.id}><td className="font-medium">{s.code}</td><td>{s.name}</td><td className="text-slate-500">{s.address ?? "-"}</td></tr>
+              <tr key={s.id}><td className="font-medium">{s.code}</td><td>{s.name}</td><td className="text-slate-500 dark:text-slate-400">{s.address ?? "-"}</td></tr>
             ))}
           </tbody>
         </table>
@@ -42,7 +42,7 @@ export default async function MasterPage() {
           <thead><tr><th>SKU</th><th>Nama</th><th>Kategori</th><th className="text-right">Min. default</th></tr></thead>
           <tbody>
             {items.map((i) => (
-              <tr key={i.id}><td className="font-medium">{i.sku}</td><td>{i.name} <span className="text-xs text-slate-400">/{i.unit}</span></td><td className="text-slate-500">{i.category?.name ?? "-"}</td><td className="text-right">{i.defaultMinThreshold}</td></tr>
+              <tr key={i.id}><td className="font-medium">{i.sku}</td><td>{i.name} <span className="text-xs text-slate-400 dark:text-slate-500">/{i.unit}</span></td><td className="text-slate-500 dark:text-slate-400">{i.category?.name ?? "-"}</td><td className="text-right">{i.defaultMinThreshold}</td></tr>
             ))}
           </tbody>
         </table>

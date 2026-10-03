@@ -28,7 +28,7 @@ export function ActionForm({ action, submitLabel, className, resetOnSuccess = tr
           {pending ? "Menyimpan..." : submitLabel}
         </button>
         {state && (
-          <p role="status" className={`text-sm ${state.ok ? "text-emerald-700" : "text-red-700"}`}>
+          <p role="status" className={`text-sm ${state.ok ? "text-emerald-700 dark:text-emerald-400" : "text-red-700 dark:text-red-400"}`}>
             {state.message}
           </p>
         )}

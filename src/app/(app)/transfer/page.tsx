@@ -24,7 +24,7 @@ export default async function TransferPage({ searchParams }: PageProps<"/transfe
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Transfer Antar Cabang</h1>
-        <p className="text-sm text-slate-500">Stok berkurang di cabang asal dan bertambah di cabang tujuan dalam satu transaksi.</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400">Stok berkurang di cabang asal dan bertambah di cabang tujuan dalam satu transaksi.</p>
       </div>
 
       <section className="card">
@@ -61,17 +61,17 @@ export default async function TransferPage({ searchParams }: PageProps<"/transfe
             <tbody>
               {transfers.map((t) => (
                 <tr key={t.id}>
-                  <td className="text-slate-500">{t.id}</td>
+                  <td className="text-slate-500 dark:text-slate-400">{t.id}</td>
                   <td className="whitespace-nowrap">{t.createdAt.toLocaleString("id-ID")}</td>
                   <td>{t.fromStore.name}</td>
                   <td>{t.toStore.name}</td>
                   <td>{t.item.name}</td>
                   <td className="text-right font-semibold">{t.quantity} {t.item.unit}</td>
-                  <td className="text-slate-500">{t.note ?? "-"}</td>
+                  <td className="text-slate-500 dark:text-slate-400">{t.note ?? "-"}</td>
                 </tr>
               ))}
               {transfers.length === 0 && (
-                <tr><td colSpan={7} className="py-6 text-center text-slate-500">Belum ada transfer.</td></tr>
+                <tr><td colSpan={7} className="py-6 text-center text-slate-500 dark:text-slate-400">Belum ada transfer.</td></tr>
               )}
             </tbody>
           </table>

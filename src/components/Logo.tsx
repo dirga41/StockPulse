@@ -5,8 +5,8 @@ export function Logo({ size = "md" }: { size?: "md" | "lg" }) {
   return (
     <span className="inline-flex items-center gap-2">
       <span className={`inline-flex items-center justify-center bg-emerald-600 font-bold text-white ${box}`}>SP</span>
-      <span className={`font-bold tracking-tight ${text}`}>
-        Stock<span className="text-emerald-600">Pulse</span>
+      <span className={`font-bold tracking-tight text-slate-900 dark:text-white ${text}`}>
+        Stock<span className="text-emerald-600 dark:text-emerald-400">Pulse</span>
       </span>
     </span>
   );

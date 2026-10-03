@@ -36,14 +36,14 @@ export function LoginForm({ next }: { next: string }) {
             onClick={() => setShow((s) => !s)}
             aria-label={show ? "Sembunyikan password" : "Lihat password"}
             title={show ? "Sembunyikan password" : "Lihat password"}
-            className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-slate-500 hover:text-slate-900"
+            className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
           >
             {show ? <EyeOffIcon /> : <EyeIcon />}
           </button>
         </div>
       </label>
       {state?.error && (
-        <p role="alert" className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
+        <p role="alert" className="rounded-md bg-red-50 dark:bg-red-950/40 px-3 py-2 text-sm text-red-700 dark:text-red-400">
           {state.error}
         </p>
       )}

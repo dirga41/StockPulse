@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Cabang / lokasi toko
+model Store {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique
+  name      String
+  address   String?
+  createdAt DateTime @default(now())
+
+  inventory     StoreInventory[]
+  logs          StockLog[]
+  transfersOut  StockTransfer[]  @relation("TransferFrom")
+  transfersIn   StockTransfer[]  @relation("TransferTo")
+
+  @@map("stores")
+}
+
+/// Kategori barang
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  items Item[]
+
+  @@map("categories")
+}
+
+/// Master barang
+model Item {
+  id                  Int      @id @default(autoincrement())
+  sku                 String   @unique
+  name                String
+  unit                String   @default("pcs")
+  defaultMinThreshold Int      @default(10)
+  categoryId          Int?
+  createdAt           DateTime @default(now())
+
+  category  Category?        @relation(fields: [categoryId], references: [id])
+  inventory StoreInventory[]
+  logs      StockLog[]
+  transfers StockTransfer[]
+
+  @@map("items")
+}
+
+/// Stok sebuah barang di sebuah cabang, beserta ambang batas minimum
+model StoreInventory {
+  id              Int      @id @default(autoincrement())
+  storeId         Int
+  itemId          Int
+  quantity        Int      @default(0)
+  minThresholdQty Int      @default(10)
+  updatedAt       DateTime @updatedAt
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  item  Item  @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, itemId])
+  @@map("store_inventory")
+}
+
+enum StockLogType {
+  IN
+  OUT
+  ADJUSTMENT
+  TRANSFER_IN
+  TRANSFER_OUT
+}
+
+/// Audit trail setiap mutasi stok
+model StockLog {
+  id          Int          @id @default(autoincrement())
+  storeId     Int
+  itemId      Int
+  type        StockLogType
+  qtyChange   Int
+  qtyBefore   Int
+  qtyAfter    Int
+  note        String?
+  transferId  Int?
+  createdAt   DateTime     @default(now())
+
+  store    Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  item     Item           @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  transfer StockTransfer? @relation(fields: [transferId], references: [id])
+
+  @@index([storeId, createdAt])
+  @@index([itemId, createdAt])
+  @@map("stock_logs")
+}
+
+/// Transfer stok antar cabang
+model StockTransfer {
+  id          Int      @id @default(autoincrement())
+  fromStoreId Int
+  toStoreId   Int
+  itemId      Int
+  quantity    Int
+  note        String?
+  createdAt   DateTime @default(now())
+
+  fromStore Store      @relation("TransferFrom", fields: [fromStoreId], references: [id], onDelete: Cascade)
+  toStore   Store      @relation("TransferTo", fields: [toStoreId], references: [id], onDelete: Cascade)
+  item      Item       @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  logs      StockLog[]
+
+  @@map("stock_transfers")
+}
+
+/// Pengguna yang boleh masuk ke aplikasi
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  @@map("users")
+}
